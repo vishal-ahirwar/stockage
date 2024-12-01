@@ -3,15 +3,15 @@
 #include <iostream>
 #include <bitset>
 
-void Stokage::writeBinary(const std::string &input, const std::string &fileName, int key)
+bool Stokage::writeBinary(const std::string &input, const std::string &fileName, int key, const std::ios::openmode mode)
 {
     // Open file in binary mode
-    std::ofstream outFile(fileName, std::ios::binary);
+    std::ofstream outFile(fileName, mode | std::ios_base::binary);
 
     if (!outFile)
     {
         std::cerr << "Error opening file for writing!\n";
-        return;
+        return false;
     }
 
     for (char c : input)
@@ -22,7 +22,8 @@ void Stokage::writeBinary(const std::string &input, const std::string &fileName,
     }
 
     outFile.close();
-    std::cout << "Binary representation written to file: " << fileName << "\n";
+    std::cout << "entry saved in " << fileName << "\n";
+    return true;
 };
 void Stokage::readBinary(std::string &dekeydString, const std::string &fileName, int key)
 {
