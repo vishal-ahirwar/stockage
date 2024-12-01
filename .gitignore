@@ -13,3 +13,4 @@ _deps
 
 build/stockage.exe
 *.bin
+/.vscode

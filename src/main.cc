@@ -1,17 +1,36 @@
 
-//Auto Genrated C++ file by ccli CLI
-//Copyright 2023 Vishal Ahirwar //replace it with your copyright notice!
-#include<iostream>
-#include<stokage.hxx>
-#define FILE_NAME "test.bin"
-int main(int argc,char*argv[])
+// Auto Genrated C++ file by ccli CLI
+// Copyright 2023 Vishal Ahirwar //replace it with your copyright notice!
+#include <iostream>
+#include <stokage.hxx>
+#include <filesystem>
+#define FILE_NAME "data.xork"
+int main(int argc, char *argv[])
 {
-    //Test
+    // Test
     Stokage stokage;
-    stokage.writeBinary("UserName:Vishal Ahirwar\nPassword:Juz9uapsvpQ&\nAddress:Bhopal\nAge:19\nBS in electronics system\n",FILE_NAME);
-    std::string out;
-    stokage.readBinary(out,"test.bin");
-    std::cout<<out<<"\n";
+    namespace fs = std::filesystem;
+    if (fs::exists(FILE_NAME))
+    {
+        std::cout << "Enter Decryption key : ";
+        int key{};
+        std::cin >> key;
+        std::string out;
+        stokage.readBinary(out,FILE_NAME, key);
+        std::cout << out << "\n";
+    }
+    else
+    {
+        std::cout << "Enter Encryption key : ";
+        int key{};
+        std::cin >> key;
+        std::cout << "Enter your msg : ";
+        std::cin.clear();
+        std::cin.ignore();
+        std::string msg{};
+        std::getline(std::cin, msg);
+        stokage.writeBinary(msg, FILE_NAME, key);
+    }
+
     return 0;
 };
-
