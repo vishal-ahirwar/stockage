@@ -2,18 +2,20 @@
 #include <filesystem>
 #include <iostream>
 #include <iomanip>
-
+#include <string.h>
+#include<colors.hpp>
 AppManager::AppManager() : key{0}
 {
+    std::cout<<YELLOW;
     std::cout << "Welcome this is Stockage Menu:\n";
-    std::cout<< "1." << " Add new entry to stockage\n";
-    std::cout<< "2." << " Delete old entry\n";
-    std::cout<< "3." << " View your whole data\n";
-    std::cout<< "4." << " Delete all of your stockage data\n";
+    std::cout << "1." << " Add new entry to stockage\n";
+    std::cout << "2." << " Delete old entry\n";
+    std::cout << "3." << " View your whole data\n";
+    std::cout << "4." << " Delete all of your stockage data\n"<<WHITE;
 }
 int AppManager::run(int argc, char **argv)
 {
-    std::cout << ": ";
+    std::cout <<GREEN<<": ";
     int input{};
     readInteger(input);
     switch (input)
@@ -29,7 +31,7 @@ int AppManager::run(int argc, char **argv)
     case 2:
     {
         askKey();
-        std::cout << "ID:>";
+        std::cout <<GREEN<<"ID:>";
         int id;
         readInteger(id);
         deleteOldEntry(id);
@@ -50,11 +52,13 @@ int AppManager::run(int argc, char **argv)
 }
 void AppManager::addNewEntry(std::string &entry)
 {
-    stokage.writeBinary(entry, getStockagePath(), key, std::ios::app | std::ios::out);
+    entry += ";";
+    std::string sep{";" + entry};
+    stokage.writeBinary(sep, getStockagePath(), key, std::ios::app | std::ios::out);
 }
 void AppManager::deleteOldEntry(int id)
 {
-    std::cout << "Not Available!\n";
+    std::cout <<RED<< "Not Available!\n"<<WHITE;
     // askKey();
     // // TODO
 }
@@ -62,24 +66,31 @@ void AppManager::viewData()
 {
     std::string entries{};
     stokage.readBinary(entries, getStockagePath(), key);
-    std::cout << entries << "\n";
+    std::istringstream ss(entries);
+    std::string str{};
+    while (std::getline(ss, str, ';'))
+    {
+        if(isprint(str[0]))
+        std::cout <<GREEN<< str << "\n";
+    };
+    std::cout<<WHITE;
 };
 
 void AppManager::deleteAll()
 {
-    std::cout << "You can't delete the aura from stockage, file is saved here " << getStockagePath() << " delete it manualy!\n";
+    std::cout <<BLUE<< "You can't delete the aura from stockage, file is saved here " <<RED<< getStockagePath() <<BLUE<< " delete it manualy!\n"<<WHITE;
 };
 
 void AppManager::readMultiLineString(std::string &new_entry)
 {
-    std::cout << "type {stop} to stop:>\n";
+    std::cout <<GREEN<< "type ; to stop:>\n"<<WHITE;
     std::cin.ignore();
     std::cin.clear();
     while (true)
     {
         std::string line{};
         std::getline(std::cin, line);
-        if (line == "{stop}")
+        if (line == ";")
             break;
         new_entry += line;
     };
@@ -89,10 +100,10 @@ void AppManager::askKey()
     int flag{};
     do
     {
-        std::cout << "Key: ";
+        std::cout <<BLUE<<"Key: ";
         readInteger(key);
-        std::cout << "Warning: Double check it please even if one digit is incorrect whole aura data will get corrupt\nAre you sure key is correct?0(n)/1(y)\n";
-        std::cout << ": ";
+        std::cout <<YELLOW<< "Warning: Double check it please even if one digit is incorrect whole aura data will get corrupt\nAre you sure key is correct?0(n)/1(y)\n"<<WHITE;
+        std::cout << GREEN<<": ";
         readInteger(flag);
     } while (flag != 1);
 }
@@ -107,7 +118,7 @@ void AppManager::readInteger(int &input)
         {
             std::cin.clear();                                                   // Clear the error flag
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard invalid input
-            std::cout << "Invalid input. Please enter an integer: ";
+            std::cout <<RED<< "Invalid input. Please enter an integer: "<<WHITE;
         }
         else
         {
