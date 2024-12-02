@@ -1,4 +1,4 @@
-Storage, also known as 'Stokage' in French, is a CLI-based, fast, and highly secure utility designed for saving your private and critical information.
+Storage, also known as 'Stockage' in French, is a CLI-based, fast, and highly secure utility designed for saving your private and critical information.
 Save your different data with different key;
 
 You no longer need to worry about privacy! Your data is securely saved locally on your machine in encrypted binary format. If needed, you can store the AURA file on a USB drive and later use Stockage to access it—with the required key, of course. Simple and secure, just like spreading butter on toast!
