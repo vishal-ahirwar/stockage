@@ -16,9 +16,10 @@ private:
     void deleteOldEntry(int id);
     void viewData();
     void deleteAll();
-    void readInteger(int&);
+    void readInteger(std::string,int&);
     void readMultiLineString(std::string&);
-    void askKey();
+    void askKey(std::string);
+    void showHelp();
 private:
     std::string getStockagePath() const;
 };
