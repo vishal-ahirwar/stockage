@@ -1,3 +1,5 @@
+![Build Status](https://github.com/vishal-ahirwar/stockage/actions/workflows/cmake-multi-platform.yml/badge.svg?event=push)
+
 Storage, also known as 'Stockage' in French, is a CLI-based, fast, and highly secure utility designed for saving your private and critical information.
 Save your different data with different key;
 
