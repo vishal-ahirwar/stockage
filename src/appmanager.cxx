@@ -4,7 +4,7 @@
 #include <iomanip>
 #include <string.h>
 #include <colors.hpp>
-
+#define WIN32 _WIN32
 AppManager::AppManager() : key{0}
 {
     showHelp();
@@ -67,7 +67,7 @@ void AppManager::addNewEntry(std::string &entry)
     {
         valid_string+=temp_string;
     };
-    valid_string+=';';
+    valid_string.append(";");
     stokage.writeBinary(valid_string, getStockagePath(), key, std::ios::app | std::ios::out);
 }
 void AppManager::deleteOldEntry(int id)
