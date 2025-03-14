@@ -12,8 +12,9 @@ AppManager::AppManager() : key{0}
 int AppManager::run(int argc, char **argv)
 {
     int input{};
-    readInteger("Command No.",input);
-    if(input<0)return 0;
+    readInteger("Command No.", input);
+    if (input < 0)
+        return 0;
     while (true)
     {
         switch (input)
@@ -30,7 +31,7 @@ int AppManager::run(int argc, char **argv)
         {
             askKey("Delete Data Key");
             int id;
-            readInteger("Delete Data<ID>",id);
+            readInteger("Delete Data<ID>", id);
             deleteOldEntry(id);
             break;
         }
@@ -50,7 +51,7 @@ int AppManager::run(int argc, char **argv)
                       << WHITE;
             break;
         };
-        readInteger("Command No.",input);
+        readInteger("Command No.", input);
         if (input < 0)
             break;
     }
@@ -63,9 +64,9 @@ void AppManager::addNewEntry(std::string &entry)
     std::istringstream ss(sep);
     std::string valid_string{};
     std::string temp_string{};
-    while(std::getline(ss,temp_string,';'))
+    while (std::getline(ss, temp_string, ';'))
     {
-        valid_string+=temp_string;
+        valid_string += temp_string;
     };
     valid_string.append(";");
     stokage.writeBinary(valid_string, getStockagePath(), key, std::ios::app | std::ios::out);
@@ -114,15 +115,7 @@ void AppManager::readMultiLineString(std::string &new_entry)
 }
 void AppManager::askKey(std::string why_str)
 {
-    int flag{};
-    do
-    {
-        readInteger("<"+why_str+">:",key);
-        std::cout << YELLOW << "Warning: Double check it please even if one digit is incorrect whole aura data will get corrupt\nAre you sure key is correct?\n"
-                  << WHITE;
-
-        readInteger("0(n)/1(y)",flag);
-    } while (flag != 1);
+    readInteger("<" + why_str + ">:", key);
 }
 void AppManager::showHelp()
 {
@@ -133,13 +126,14 @@ void AppManager::showHelp()
     std::cout << "3." << " View your whole data\n";
     std::cout << "4." << " Delete all of your stockage data\n";
     std::cout << "5." << " Show help\n";
-    std::cout << "?." << "Any Negative number to quit\n" << WHITE;
+    std::cout << "?." << "Any Negative number to quit\n"
+              << WHITE;
 }
-void AppManager::readInteger(std::string why_str,int &input)
+void AppManager::readInteger(std::string why_str, int &input)
 {
     while (true)
     {
-        std::cout<<why_str<<": ";
+        std::cout << why_str << ": ";
         std::cin >> input;
 
         // Check if the input is valid
