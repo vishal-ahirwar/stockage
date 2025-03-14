@@ -4,7 +4,7 @@
 #include <iomanip>
 #include <string.h>
 #include <colors.hpp>
-#define WIN32 _WIN32
+
 AppManager::AppManager() : key{0}
 {
     showHelp();
@@ -158,7 +158,7 @@ void AppManager::readInteger(std::string why_str,int &input)
 
 std::string AppManager::getStockagePath() const
 {
-#ifdef WIN32
+#ifdef _WIN32
 #define USER_NAME "USERPROFILE"
 #else
 #define USER_NAME "USER"
@@ -166,7 +166,7 @@ std::string AppManager::getStockagePath() const
 
     std::string user_name{getenv(USER_NAME)};
 
-#ifdef WIN32
+#ifdef _WIN32
     std::string path{user_name + "\\stockage"};
 #else
     std::string path{"/home/" + user_name + "/stockage"};
@@ -178,7 +178,7 @@ std::string AppManager::getStockagePath() const
     {
         fs::create_directory(path);
     };
-#ifdef WIN32
+#ifdef _WIN32
     return path + "\\data.aura";
 #else
     return path + "/data.aura";
